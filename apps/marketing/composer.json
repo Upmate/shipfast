@@ -4,7 +4,7 @@
   "type": "project",
   "require": {
     "php": "^8.3",
-    "slim/slim": "^4.14",
+    "slim/slim": "^4.15",
     "slim/psr7": "^1.7",
     "twig/twig": "^3.14"
   },
