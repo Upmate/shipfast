@@ -1,0 +1,10 @@
+# Cursor Rules for ShipFast
+
+## Code Style
+- Use 2-space indentation for Ruby
+- Prefer single quotes for strings
+- Always add type signatures
+
+## Architecture
+- Follow service-oriented architecture
+- Each service handles one domain
