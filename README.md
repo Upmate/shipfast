@@ -2,8 +2,7 @@
 
 > A modern microservices platform for rapid product delivery
 
-<!-- Pullminder Health Badge — will be added after enabling -->
-<!-- [![Pullminder Health](BADGE_URL)](https://pullminder.com) -->
+[![Pullminder Health](https://api.pullminder.com/badge/t_51387964e55ce153472693ccc965a930.svg)](https://pullminder.com)
 
 ## About
 
