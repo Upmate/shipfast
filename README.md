@@ -67,35 +67,35 @@ These PRs demonstrate how Pullminder analyzes real-world changes:
 
 | PR                                                | Title                                | Risk     | What Pullminder Catches                                                       |
 | ------------------------------------------------- | ------------------------------------ | -------- | ----------------------------------------------------------------------------- |
-| [#4](https://github.com/Upmate/shipfast/pull/4)   | Add user authentication endpoint     | Critical | Leaked AWS keys, JWT secrets, sensitive `auth/` path, insecure patterns       |
-| [#12](https://github.com/Upmate/shipfast/pull/12) | Update React dashboard components    | High     | Unsafe HTML rendering, direct DOM manipulation, console.log, disabled ESLint  |
-| [#3](https://github.com/Upmate/shipfast/pull/3)   | Add data pipeline ETL script         | High     | Shell injection, unsafe deserialization, SQL injection, hardcoded DB password |
-| [#5](https://github.com/Upmate/shipfast/pull/5)   | Upgrade dependencies across services | Medium   | Dependency changes across 6 lock files simultaneously                         |
-| [#7](https://github.com/Upmate/shipfast/pull/7)   | Refactor billing module              | High     | 600+ line diff, 20+ files changed, sensitive `billing/` path                  |
-| [#6](https://github.com/Upmate/shipfast/pull/6)   | Add notification templates           | Medium   | AI-generated code (Co-authored-by: Cursor, cursor/ branch, .cursorrules)      |
-| [#8](https://github.com/Upmate/shipfast/pull/8)   | Add user registration with tests     | Medium   | New Go handlers with no corresponding test files                              |
-| [#11](https://github.com/Upmate/shipfast/pull/11) | Update CI/CD pipeline and Terraform  | High     | GitHub Actions workflows, Terraform IaC, Kubernetes RBAC                      |
-| [#9](https://github.com/Upmate/shipfast/pull/9)   | Fix login page styling               | Low      | Clean PR — small CSS-only change, passes all checks                           |
-| [#10](https://github.com/Upmate/shipfast/pull/10) | Add Redis caching layer              | Medium   | Hardcoded Redis connection string, new Cargo.lock dependency                  |
+| [#14](https://github.com/Upmate/shipfast/pull/14) | Add user authentication endpoint     | Critical | Leaked AWS keys, JWT secrets, sensitive `auth/` path, insecure patterns       |
+| [#22](https://github.com/Upmate/shipfast/pull/22) | Update React dashboard components    | High     | Unsafe HTML rendering, direct DOM manipulation, console.log, disabled ESLint  |
+| [#13](https://github.com/Upmate/shipfast/pull/13) | Add data pipeline ETL script         | High     | Shell injection, unsafe deserialization, SQL injection, hardcoded DB password |
+| [#15](https://github.com/Upmate/shipfast/pull/15) | Upgrade dependencies across services | Medium   | Dependency changes across 6 lock files simultaneously                         |
+| [#17](https://github.com/Upmate/shipfast/pull/17) | Refactor billing module              | High     | 600+ line diff, 20+ files changed, sensitive `billing/` path                  |
+| [#16](https://github.com/Upmate/shipfast/pull/16) | Add notification templates           | Medium   | AI-generated code (Co-authored-by: Cursor, cursor/ branch, .cursorrules)      |
+| [#18](https://github.com/Upmate/shipfast/pull/18) | Add user registration with tests     | Medium   | New Go handlers with no corresponding test files                              |
+| [#21](https://github.com/Upmate/shipfast/pull/21) | Update CI/CD pipeline and Terraform  | High     | GitHub Actions workflows, Terraform IaC, Kubernetes RBAC                      |
+| [#19](https://github.com/Upmate/shipfast/pull/19) | Fix login page styling               | Low      | Clean PR — small CSS-only change, passes all checks                           |
+| [#20](https://github.com/Upmate/shipfast/pull/20) | Add Redis caching layer              | Medium   | Hardcoded Redis connection string, new Cargo.lock dependency                  |
 
 ## Analyzer Coverage
 
 Every Pullminder analyzer is triggered by at least one demo PR:
 
-| Analyzer                 | What It Detects                                         | Triggered By        |
-| ------------------------ | ------------------------------------------------------- | ------------------- |
-| Secrets Detection        | AWS keys, API tokens, private keys, connection strings  | PR #4               |
-| Insecure Patterns        | SQL injection, shell injection, unsafe HTML             | PR #4, #12, #3, #10 |
-| Sensitive Paths          | Changes to auth/, billing/, security/, migrations/      | PR #4, #7           |
-| AI Detection             | Co-author trailers, AI branch prefixes, AI config files | PR #6               |
-| Test Gap                 | Source files without corresponding test files           | PR #8               |
-| Diff Size                | Large PRs (500+ lines added/removed)                    | PR #7               |
-| Files Changed            | PRs touching many files (15+)                           | PR #5, #7           |
-| Dependency Changes       | Lock file and manifest updates                          | PR #5, #10          |
-| Config/Permissions       | CI/CD workflows, IaC, RBAC, CODEOWNERS                  | PR #11              |
-| Framework Rules (React)  | React-specific anti-patterns and security issues        | PR #12              |
-| Framework Rules (Go)     | Go-specific anti-patterns                               | PR #4               |
-| Framework Rules (Python) | Python-specific anti-patterns                           | PR #3               |
+| Analyzer                 | What It Detects                                         | Triggered By          |
+| ------------------------ | ------------------------------------------------------- | --------------------- |
+| Secrets Detection        | AWS keys, API tokens, private keys, connection strings  | PR #14                |
+| Insecure Patterns        | SQL injection, shell injection, unsafe HTML             | PR #14, #22, #13, #20 |
+| Sensitive Paths          | Changes to auth/, billing/, security/, migrations/      | PR #14, #17           |
+| AI Detection             | Co-author trailers, AI branch prefixes, AI config files | PR #16                |
+| Test Gap                 | Source files without corresponding test files           | PR #18                |
+| Diff Size                | Large PRs (500+ lines added/removed)                    | PR #17                |
+| Files Changed            | PRs touching many files (15+)                           | PR #15, #17           |
+| Dependency Changes       | Lock file and manifest updates                          | PR #15, #20           |
+| Config/Permissions       | CI/CD workflows, IaC, RBAC, CODEOWNERS                  | PR #21                |
+| Framework Rules (React)  | React-specific anti-patterns and security issues        | PR #22                |
+| Framework Rules (Go)     | Go-specific anti-patterns                               | PR #14                |
+| Framework Rules (Python) | Python-specific anti-patterns                           | PR #13                |
 
 ## Features Demonstrated
 
