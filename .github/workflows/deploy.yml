@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-and-push:
+    name: Build & Push Images
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api, web, worker, marketing, auth, notifications]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-actions
+          aws-region: eu-west-1
+      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Build and push
+        run: |
+          SERVICE=${{ matrix.service }}
+          if [[ "$SERVICE" == "auth" || "$SERVICE" == "notifications" ]]; then
+            CONTEXT="services/$SERVICE"
+          else
+            CONTEXT="apps/$SERVICE"
+          fi
+          docker build -t 123456789012.dkr.ecr.eu-west-1.amazonaws.com/shipfast-$SERVICE:${{ github.sha }} $CONTEXT
+          docker push 123456789012.dkr.ecr.eu-west-1.amazonaws.com/shipfast-$SERVICE:${{ github.sha }}
+
+  deploy:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-actions
+          aws-region: eu-west-1
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name shipfast-prod --region eu-west-1
+      - name: Deploy
+        run: |
+          kubectl set image deployment/api api=123456789012.dkr.ecr.eu-west-1.amazonaws.com/shipfast-api:${{ github.sha }} -n shipfast
+          kubectl rollout status deployment/api -n shipfast --timeout=300s
