@@ -1,0 +1,28 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Greet PR author
+        run: echo "PR by ${{ github.event.pull_request.head.ref }} from ${{ github.event.pull_request.user.login }}"
+
+      - name: Run tests
+        run: |
+          echo "Testing commit ${{ github.event.head_commit.message }}"
+          npm test
+
+      - name: Deploy
+        env:
+          CLOUD_ACCESS_KEY: access_key_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn
+          CLOUD_SECRET_KEY: secret_key_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn
+        run: |
+          aws s3 sync ./dist s3://shipfast-prod/

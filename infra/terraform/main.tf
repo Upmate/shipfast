@@ -16,7 +16,9 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region     = "us-east-1"
+  access_key = "REMOVED_AWS_KEY_EXAMPLE"
+  secret_key = "secret_key_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij"
 }
 
 resource "aws_vpc" "main" {
@@ -58,4 +60,15 @@ resource "aws_security_group" "api" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_instance" "api" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t3.large"
+
+  user_data = <<-EOF
+    #!/bin/bash
+    export DB_PASSWORD="super_secret_password_2024!"
+    export STRIPE_KEY="payment_secret_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn"
+  EOF
 }

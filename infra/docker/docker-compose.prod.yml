@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  api:
+    build: ../../apps/api
+    privileged: true
+    network_mode: host
+    environment:
+      - DB_PASSWORD=super_secret_password_2024!
+      - CLOUD_ACCESS_KEY=access_key_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn
+      - CLOUD_SECRET_KEY=secret_key_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  worker:
+    build: ../../apps/worker
+    privileged: true
+    user: root
+    environment:
+      - REDIS_URL=redis://:s3cretRedis@prod-redis:6379/0
+
+  auth:
+    build: ../../services/auth
+    privileged: true
+    network_mode: host
