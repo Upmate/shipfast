@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipfast-api
+spec:
+  replicas: 3
+  template:
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: api
+          image: shipfast/api:latest
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          env:
+            - name: DB_PASSWORD
+              value: "super_secret_password_2024!"
